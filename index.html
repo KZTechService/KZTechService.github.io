@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:,">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
@@ -262,7 +263,7 @@
         });
     }
 
-    const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw_qHtTLjN-e8s3UQVOL5VIcFb7rdmBVJL0oacowlQdO1RO3f0uqg5_vJ4B0SfUY4L9jQ/exec';
+    const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx0leO8-pOzvFWStJO3_PUBIBiaToB_1whu_U9gzhaw5EA82PUs743vyBz9UME0yFH0/exec';
     const contactForm = document.getElementById('contact-form');
     const popupModal = document.getElementById('popup-modal');
     const popupContent = document.getElementById('popup-modal-content');
@@ -300,14 +301,13 @@
             const formData = new FormData(contactForm);
             const serviceSelect = contactForm.querySelector('select[name="service"]');
             const serviceLabel = serviceSelect?.selectedOptions?.[0]?.textContent?.trim() || '';
-            const payload = {
-                name: formData.get('name')?.toString().trim() || '',
-                phone: formData.get('phone')?.toString().trim() || '',
-                address: formData.get('address')?.toString().trim() || '',
-                service: formData.get('service')?.toString().trim() || '',
-                serviceLabel,
-                message: formData.get('message')?.toString().trim() || '',
-            };
+            const params = new URLSearchParams();
+            params.set('name', formData.get('name')?.toString().trim() || '');
+            params.set('phone', formData.get('phone')?.toString().trim() || '');
+            params.set('address', formData.get('address')?.toString().trim() || '');
+            params.set('service', formData.get('service')?.toString().trim() || '');
+            params.set('serviceLabel', serviceLabel);
+            params.set('message', formData.get('message')?.toString().trim() || '');
 
             submitButton?.setAttribute('disabled', 'disabled');
             showPopup('Đang gửi yêu cầu...', true);
@@ -315,7 +315,7 @@
             try {
                 const response = await fetch(APP_SCRIPT_URL, {
                     method: 'POST',
-                    body: JSON.stringify(payload),
+                    body: params,
                 });
 
                 const rawText = await response.text();
