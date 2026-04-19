@@ -331,6 +331,42 @@
     const popupContent = document.getElementById('popup-modal-content');
     const popupClose = document.getElementById('popup-modal-close');
 
+    // Debug Logger
+    const debugLog = {
+        logs: [],
+        maxLogs: 50,
+        add: function(level, message, data) {
+            const timestamp = new Date().toLocaleTimeString('vi-VN', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            const logEntry = `[${timestamp}] [${level}] ${message}`;
+            this.logs.push(logEntry);
+            if (this.logs.length > this.maxLogs) {
+                this.logs.shift();
+            }
+            
+            // Console output
+            const consoleMessage = `%c[${level}] ${message}`;
+            const style = level === 'ERROR' ? 'color: red; font-weight: bold;' : 
+                         level === 'SUCCESS' ? 'color: green; font-weight: bold;' : 
+                         level === 'WARNING' ? 'color: orange; font-weight: bold;' : 'color: blue;';
+            console.log(consoleMessage, style);
+            if (data) {
+                console.log('Data:', data);
+            }
+        },
+        info: function(message, data) { this.add('INFO', message, data); },
+        success: function(message, data) { this.add('SUCCESS', message, data); },
+        error: function(message, data) { this.add('ERROR', message, data); },
+        warning: function(message, data) { this.add('WARNING', message, data); },
+        print: function() {
+            console.log('%c=== DEBUG LOG ===', 'color: purple; font-weight: bold; font-size: 14px;');
+            this.logs.forEach(log => console.log(log));
+            console.log('%c================', 'color: purple; font-weight: bold; font-size: 14px;');
+        }
+    };
+
+    window.debugLog = debugLog;
+    debugLog.info('Debug Logger initialized');
+
     function showPopup(message, success = true) {
         if (!popupModal || !popupContent) return;
         popupContent.textContent = message;
@@ -358,11 +394,13 @@
     if (contactForm) {
         contactForm.addEventListener('submit', async (event) => {
             event.preventDefault();
+            debugLog.info('Form submission started');
 
             const submitButton = contactForm.querySelector('button[type="submit"]');
             const formData = new FormData(contactForm);
             const serviceSelect = contactForm.querySelector('select[name="service"]');
             const serviceLabel = serviceSelect?.selectedOptions?.[0]?.textContent?.trim() || '';
+            
             const params = new URLSearchParams();
             params.set('name', formData.get('name')?.toString().trim() || '');
             params.set('phone', formData.get('phone')?.toString().trim() || '');
@@ -371,8 +409,18 @@
             params.set('serviceLabel', serviceLabel);
             params.set('message', formData.get('message')?.toString().trim() || '');
 
+            debugLog.info('Form data collected', {
+                name: params.get('name'),
+                phone: params.get('phone'),
+                address: params.get('address'),
+                service: params.get('service'),
+                serviceLabel: params.get('serviceLabel'),
+                message: params.get('message')
+            });
+
             submitButton?.setAttribute('disabled', 'disabled');
             showPopup('Đang gửi yêu cầu...', true);
+            debugLog.info('Sending POST request to:', APP_SCRIPT_URL);
 
             try {
                 const response = await fetch(APP_SCRIPT_URL, {
@@ -380,31 +428,42 @@
                     body: params,
                 });
 
+                debugLog.info(`Response received: HTTP ${response.status} ${response.statusText}`);
+
                 const rawText = await response.text();
+                debugLog.info('Raw response text:', { length: rawText.length, preview: rawText.substring(0, 200) });
+                
                 let json = null;
                 try {
                     json = JSON.parse(rawText);
+                    debugLog.success('JSON parsed successfully', json);
                 } catch (_parseError) {
-                    // invalid JSON response is ignored for user-facing messaging
+                    debugLog.error('JSON parse error', { error: _parseError.message, rawText: rawText });
                 }
 
                 const success = json?.success === true;
                 const baseMessage = json?.message || (success ? 'Đã nhận thông tin' : 'Lỗi: Gửi không thành công.');
 
+                debugLog.info('Response result', { success: success, message: baseMessage, isOk: response.ok });
+
                 if (!response.ok || !success) {
                     const isValidationError = baseMessage.includes('Vui lòng') || baseMessage.includes('Số điện thoại');
                     const displayMessage = isValidationError ? baseMessage : 'Đã xảy ra lỗi hệ thống. Vui lòng thử lại sau hoặc liên hệ hỗ trợ.';
+                    debugLog.error('Form submission failed', { displayMessage: displayMessage });
                     showPopup(displayMessage, false);
                 } else {
+                    debugLog.success('Form submission successful');
                     showPopup(baseMessage, true);
                     contactForm.reset();
                 }
             } catch (error) {
                 const errorMessage = 'Không thể gửi yêu cầu. Vui lòng kiểm tra kết nối internet và thử lại.';
+                debugLog.error('Fetch error', { error: error.message, stack: error.stack });
                 showPopup(errorMessage, false);
-                console.error(error);
             } finally {
                 submitButton?.removeAttribute('disabled');
+                debugLog.info('Form submission handler completed');
+                debugLog.info('Type "debugLog.print()" in console to see full debug log');
             }
         });
     }
