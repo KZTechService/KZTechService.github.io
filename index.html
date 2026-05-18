@@ -211,39 +211,20 @@
                     </div>
                 </div>
             </div>
-            <form id="contact-form" class="space-y-4 sm:space-y-6 rounded-2xl sm:rounded-3xl bg-slate-700/95 md:bg-slate-950/90 border border-white/10 p-4 sm:p-6 lg:p-8 shadow-xl">
-                <div>
-                    <label class="block text-xs sm:text-sm font-semibold text-slate-200">Họ và tên</label>
-                    <input name="name" type="text" placeholder="Nguyễn Văn A" class="mt-2 w-full rounded-2xl sm:rounded-3xl border border-slate-700 bg-slate-900 px-4 sm:px-5 py-3 sm:py-4 text-sm sm:text-base text-white outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30" />
+            <div class="space-y-4 sm:space-y-6 rounded-2xl sm:rounded-3xl bg-slate-800/95 md:bg-slate-950/90 border border-white/10 p-6 shadow-xl">
+                <p class="text-sm font-semibold uppercase tracking-[0.2em] text-blue-300">Liên hệ nhanh</p>
+                <div class="grid gap-4">
+                    <a href="tel:0368209690" class="inline-flex items-center justify-center rounded-2xl bg-blue-500 px-5 py-4 text-base font-semibold text-white transition hover:bg-blue-400">
+                        <i class="fa-solid fa-phone mr-3"></i>Gọi ngay
+                    </a>
+                    <a href="https://zalo.me/0368209690" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center rounded-2xl bg-[#06A5E0] px-5 py-4 text-base font-semibold text-white transition hover:bg-[#0B7BBF]">
+                        <i class="fa-brands fa-whatsapp mr-3"></i>Chat Zalo
+                    </a>
+                    <a href="https://maps.google.com?q=Xã+Phú+Lộc,+Thành+Phố+Cần+Thơ" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center rounded-2xl bg-slate-700 px-5 py-4 text-base font-semibold text-white transition hover:bg-slate-600">
+                        <i class="fa-solid fa-map-location-dot mr-3"></i>Bản đồ
+                    </a>
                 </div>
-                <div>
-                    <label class="block text-xs sm:text-sm font-semibold text-slate-200">Số điện thoại</label>
-                    <input name="phone" type="tel" placeholder="0368.209.690" class="mt-2 w-full rounded-2xl sm:rounded-3xl border border-slate-700 bg-slate-900 px-4 sm:px-5 py-3 sm:py-4 text-sm sm:text-base text-white outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30" />
-                </div>
-                <div>
-                    <label class="block text-xs sm:text-sm font-semibold text-slate-200">Địa chỉ</label>
-                    <input name="address" type="text" placeholder="..." class="mt-2 w-full rounded-2xl sm:rounded-3xl border border-slate-700 bg-slate-900 px-4 sm:px-5 py-3 sm:py-4 text-sm sm:text-base text-white outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30" />
-                </div>
-                <div>
-                    <label class="block text-xs sm:text-sm font-semibold text-slate-200">Nhu cầu</label>
-                    <select name="service" class="mt-2 w-full rounded-2xl sm:rounded-3xl border border-slate-700 bg-slate-900 px-4 sm:px-5 py-3 sm:py-4 text-sm sm:text-base text-white outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30">
-                        <option value="">Chọn nhu cầu</option>
-                        <option value="sua-laptop">Sửa laptop / PC</option>
-                        <option value="lap-camera">Lắp camera an ninh</option>
-                        <option value="sua-dien">Sửa điện dân dụng</option>
-                        <option value="wifi-internet">Cài đặt/wifi internet</option>
-                        <option value="may-in">Sửa máy in / nạp mực</option>
-                        <option value="nang-luong">Đèn, quạt, năng lượng mặt trời</option>
-                        <option value="khao-sat">Khảo sát & báo giá</option>
-                        <option value="khac">Khác</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-xs sm:text-sm font-semibold text-slate-200">Tin nhắn</label>
-                    <textarea name="message" rows="4" placeholder="Mô tả ngắn gọn vấn đề" class="mt-2 w-full rounded-2xl sm:rounded-3xl border border-slate-700 bg-slate-900 px-4 sm:px-5 py-3 sm:py-4 text-sm sm:text-base text-white outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"></textarea>
-                </div>
-                <button type="submit" class="w-full rounded-2xl sm:rounded-3xl bg-blue-500 px-6 py-3 sm:py-4 text-sm sm:text-base font-semibold text-white hover:bg-blue-400">Gửi yêu cầu</button>
-            </form>
+            </div>
         </div>
     </div>
 </section>
@@ -259,13 +240,6 @@
         </div>
     </div>
 </footer>
-
-    <div id="popup-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-slate-950/60 px-4 py-8">
-        <div class="w-full max-w-md rounded-[28px] bg-white p-6 shadow-2xl ring-1 ring-slate-200">
-                <div id="popup-modal-content" class="text-base font-medium text-slate-900 whitespace-pre-wrap"></div>
-            </div>
-        </div>
-    </div>
 
 <script>
     // Hàm chung để cuộn mượt đến anchor
@@ -325,148 +299,6 @@
         });
     }
 
-    const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxiiv4od96PlYDK2qtQRIP3INGusDeZXBjmUnSCVjN7Oepfk5JqkOqysRK-JGMckZEU/exec';
-    const contactForm = document.getElementById('contact-form');
-    const popupModal = document.getElementById('popup-modal');
-    const popupContent = document.getElementById('popup-modal-content');
-    const popupClose = document.getElementById('popup-modal-close');
-
-    // Debug Logger
-    const debugLog = {
-        logs: [],
-        maxLogs: 50,
-        add: function(level, message, data) {
-            const timestamp = new Date().toLocaleTimeString('vi-VN', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            const logEntry = `[${timestamp}] [${level}] ${message}`;
-            this.logs.push(logEntry);
-            if (this.logs.length > this.maxLogs) {
-                this.logs.shift();
-            }
-            
-            // Console output
-            const consoleMessage = `%c[${level}] ${message}`;
-            const style = level === 'ERROR' ? 'color: red; font-weight: bold;' : 
-                         level === 'SUCCESS' ? 'color: green; font-weight: bold;' : 
-                         level === 'WARNING' ? 'color: orange; font-weight: bold;' : 'color: blue;';
-            console.log(consoleMessage, style);
-            if (data) {
-                console.log('Data:', data);
-            }
-        },
-        info: function(message, data) { this.add('INFO', message, data); },
-        success: function(message, data) { this.add('SUCCESS', message, data); },
-        error: function(message, data) { this.add('ERROR', message, data); },
-        warning: function(message, data) { this.add('WARNING', message, data); },
-        print: function() {
-            console.log('%c=== DEBUG LOG ===', 'color: purple; font-weight: bold; font-size: 14px;');
-            this.logs.forEach(log => console.log(log));
-            console.log('%c================', 'color: purple; font-weight: bold; font-size: 14px;');
-        }
-    };
-
-    window.debugLog = debugLog;
-    debugLog.info('Debug Logger initialized');
-
-    function showPopup(message, success = true) {
-        if (!popupModal || !popupContent) return;
-        popupContent.textContent = message;
-        popupContent.classList.toggle('text-green-600', success);
-        popupContent.classList.toggle('text-red-600', !success);
-        popupModal.classList.remove('hidden');
-    }
-
-    function hidePopup() {
-        if (!popupModal) return;
-        popupModal.classList.add('hidden');
-    }
-
-    if (popupClose) {
-        popupClose.addEventListener('click', hidePopup);
-    }
-    if (popupModal) {
-        popupModal.addEventListener('click', (event) => {
-            if (event.target === popupModal) {
-                hidePopup();
-            }
-        });
-    }
-
-    if (contactForm) {
-        contactForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            debugLog.info('Form submission started');
-
-            const submitButton = contactForm.querySelector('button[type="submit"]');
-            const formData = new FormData(contactForm);
-            const serviceSelect = contactForm.querySelector('select[name="service"]');
-            const serviceLabel = serviceSelect?.selectedOptions?.[0]?.textContent?.trim() || '';
-            
-            const params = new URLSearchParams();
-            params.set('name', formData.get('name')?.toString().trim() || '');
-            params.set('phone', formData.get('phone')?.toString().trim() || '');
-            params.set('address', formData.get('address')?.toString().trim() || '');
-            params.set('service', formData.get('service')?.toString().trim() || '');
-            params.set('serviceLabel', serviceLabel);
-            params.set('message', formData.get('message')?.toString().trim() || '');
-
-            debugLog.info('Form data collected', {
-                name: params.get('name'),
-                phone: params.get('phone'),
-                address: params.get('address'),
-                service: params.get('service'),
-                serviceLabel: params.get('serviceLabel'),
-                message: params.get('message')
-            });
-
-            submitButton?.setAttribute('disabled', 'disabled');
-            showPopup('Đang gửi yêu cầu...', true);
-            debugLog.info('Sending POST request to:', APP_SCRIPT_URL);
-
-            try {
-                const response = await fetch(APP_SCRIPT_URL, {
-                    method: 'POST',
-                    body: params,
-                });
-
-                debugLog.info(`Response received: HTTP ${response.status} ${response.statusText}`);
-
-                const rawText = await response.text();
-                debugLog.info('Raw response text:', { length: rawText.length, preview: rawText.substring(0, 200) });
-                
-                let json = null;
-                try {
-                    json = JSON.parse(rawText);
-                    debugLog.success('JSON parsed successfully', json);
-                } catch (_parseError) {
-                    debugLog.error('JSON parse error', { error: _parseError.message, rawText: rawText });
-                }
-
-                const success = json?.success === true;
-                const baseMessage = json?.message || (success ? 'Đã nhận thông tin' : 'Lỗi: Gửi không thành công.');
-
-                debugLog.info('Response result', { success: success, message: baseMessage, isOk: response.ok });
-
-                if (!response.ok || !success) {
-                    const isValidationError = baseMessage.includes('Vui lòng') || baseMessage.includes('Số điện thoại');
-                    const displayMessage = isValidationError ? baseMessage : 'Đã xảy ra lỗi hệ thống. Vui lòng thử lại sau hoặc liên hệ hỗ trợ.';
-                    debugLog.error('Form submission failed', { displayMessage: displayMessage });
-                    showPopup(displayMessage, false);
-                } else {
-                    debugLog.success('Form submission successful');
-                    showPopup(baseMessage, true);
-                    contactForm.reset();
-                }
-            } catch (error) {
-                const errorMessage = 'Không thể gửi yêu cầu. Vui lòng kiểm tra kết nối internet và thử lại.';
-                debugLog.error('Fetch error', { error: error.message, stack: error.stack });
-                showPopup(errorMessage, false);
-            } finally {
-                submitButton?.removeAttribute('disabled');
-                debugLog.info('Form submission handler completed');
-                debugLog.info('Type "debugLog.print()" in console to see full debug log');
-            }
-        });
-    }
     </script>
 </body>
 </html>
